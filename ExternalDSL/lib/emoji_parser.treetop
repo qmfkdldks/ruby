@@ -1,0 +1,32 @@
+grammar Emoji
+ rule additive
+    multitive a:( '+' multitive )* {
+      def value
+        a.elements.inject(multitive.value) { |sum, e|
+          sum+e.multitive.value
+        }
+      end
+    }
+  end
+
+  rule multitive
+    primary ( [*/%] primary )*
+  end
+
+  rule primary
+    '(' additive ')' / number
+  end
+
+rule number
+'-'? [1-9] [0-9]* 
+end
+
+rule substract
+'😣'
+end
+ 
+rule space
+[\s]+
+end
+
+end
